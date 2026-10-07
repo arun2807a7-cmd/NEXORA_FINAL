@@ -1,0 +1,95 @@
+/* =========================================================
+   KHETSETU DELIVERY MODULE — styles
+   Cart, checkout form, and order-history cards, styled to match
+   the export/services modules already on the site.
+   ========================================================= */
+
+/* ---------- Cart badge on the nav "Delivery" link ---------- */
+.cart-badge{
+  display:none; align-items:center; justify-content:center;
+  min-width:17px; height:17px; padding:0 4px; margin-left:6px;
+  background:var(--sindoor); color:#fff; font-size:.64rem; font-weight:800;
+  border-radius:999px; vertical-align:middle;
+}
+
+/* ---------- Toast shown briefly after "Add to cart" ---------- */
+.dl-add-toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(12px);
+  background:var(--neem-deep); color:#fff; font-size:.84rem; font-weight:700;
+  padding:11px 20px; border-radius:999px; box-shadow:0 10px 26px rgba(0,0,0,.28);
+  opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease; z-index:9998;
+}
+.dl-add-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ---------- Cart list ---------- */
+.dl-cart-list{ display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+.dl-cart-row{
+  display:grid; grid-template-columns:52px 1fr auto auto auto;
+  align-items:center; gap:14px;
+  background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:10px 12px;
+}
+.dl-cart-row img{ width:52px; height:52px; border-radius:9px; object-fit:cover; }
+.dl-cart-main b{ display:block; color:var(--neem-deep); font-family:'Manrope',sans-serif; font-size:.94rem; }
+.dl-cart-sub{ font-size:.74rem; color:#7a6d59; margin-top:1px; }
+.dl-qty-stepper{
+  display:flex; align-items:center; gap:8px; background:var(--khadi); border-radius:999px; padding:4px 6px;
+}
+.dl-qty-btn{
+  width:24px; height:24px; border-radius:50%; border:none; background:var(--neem); color:#fff;
+  font-size:.95rem; font-weight:800; line-height:1; display:flex; align-items:center; justify-content:center;
+}
+.dl-qty-btn:hover{ background:var(--neem-deep); }
+.dl-qty-stepper span{ min-width:16px; text-align:center; font-weight:700; font-size:.86rem; color:var(--neem-deep); }
+.dl-line-total{ font-family:'DM Sans',monospace; font-weight:700; color:var(--neem-deep); white-space:nowrap; }
+.dl-remove-btn{
+  width:26px; height:26px; border-radius:50%; border:1px solid var(--line); background:var(--paper);
+  color:var(--sindoor); font-size:.78rem; display:flex; align-items:center; justify-content:center;
+}
+.dl-remove-btn:hover{ background:var(--sindoor); color:#fff; border-color:var(--sindoor); }
+
+.dl-empty{
+  text-align:center; padding:34px 20px; color:#8a7d68; font-size:.92rem;
+  background:var(--paper); border:1.5px dashed var(--line); border-radius:var(--radius);
+}
+
+/* ---------- Order summary box ---------- */
+.dl-summary{
+  background:var(--chit); border:1px dashed var(--line); border-radius:14px; padding:16px 18px; margin-bottom:22px;
+}
+.dl-summary-row{ display:flex; justify-content:space-between; font-size:.86rem; color:#3a4a3f; padding:4px 0; }
+.dl-summary-row.total{
+  border-top:1px dashed var(--line); margin-top:6px; padding-top:10px;
+  font-weight:800; color:var(--neem-deep); font-size:1rem;
+}
+.dl-free-hint{ font-size:.72rem; color:#8a7d68; margin-top:6px; }
+
+/* ---------- My orders ---------- */
+.dl-my-orders{ margin-top:8px; display:flex; flex-direction:column; gap:12px; }
+.dl-order{
+  border:1.5px solid var(--line); border-radius:12px; padding:14px 16px; background:var(--paper);
+}
+.dl-order-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.dl-order-top b{ color:var(--neem-deep); font-family:'Manrope',sans-serif; }
+.dl-order-status{
+  font-size:.64rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+  background:rgba(131,166,111,.22); color:#3E6B2E; padding:4px 10px; border-radius:999px;
+}
+.dl-order-items{ font-size:.84rem; color:var(--ink); margin-bottom:6px; }
+.dl-order-meta{ display:flex; justify-content:space-between; font-size:.72rem; color:#8a7d68; margin-bottom:4px; flex-wrap:wrap; gap:6px; }
+.dl-order-addr{ font-size:.74rem; color:#7a6d59; margin-bottom:6px; }
+.dl-order-total{ font-family:'DM Sans',monospace; font-weight:800; color:var(--neem-deep); text-align:right; }
+.dl-empty-hint{ font-size:.86rem; color:#8a7d68; padding:6px 2px; }
+
+.dl-form-warning{
+  display:none; margin-bottom:12px; padding:11px 14px; border-radius:9px;
+  background:rgba(190,74,38,.12); color:var(--sindoor); font-size:.82rem; font-weight:700;
+}
+
+@media (max-width:640px){
+  .dl-cart-row{ grid-template-columns:44px 1fr; grid-template-areas:"img main" "img qty" "img total"; row-gap:6px; }
+  .dl-cart-row img{ grid-area:img; }
+  .dl-cart-main{ grid-area:main; }
+  .dl-qty-stepper{ grid-area:qty; justify-self:start; }
+  .dl-line-total{ grid-area:total; justify-self:start; }
+  .dl-remove-btn{ position:absolute; margin-left:8px; }
+}

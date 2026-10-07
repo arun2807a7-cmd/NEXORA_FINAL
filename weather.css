@@ -1,0 +1,102 @@
+/* =========================================================
+   KHETSETU WEATHER MODULE — styles
+   Reuses site tokens (khadi / neem / haldi / sindoor) so the
+   weather page feels native, not bolted on.
+   ========================================================= */
+
+.wx-toolbar{
+  display:flex; gap:14px; flex-wrap:wrap; align-items:center;
+  margin-bottom:22px;
+}
+.wx-search{
+  display:flex; gap:8px; flex:1; min-width:260px;
+}
+.wx-search input{
+  flex:1; border:1.5px solid var(--line); background:var(--paper); border-radius:12px;
+  padding:11px 14px; font-size:.9rem; font-family:'DM Sans',sans-serif; color:var(--ink); outline:none;
+}
+.wx-search input:focus{ border-color:var(--neem); }
+.wx-search .mini-btn{ border-radius:12px; padding:0 18px; white-space:nowrap; }
+.wx-locate-btn{
+  display:flex; align-items:center; gap:7px; border:1.5px solid var(--neem); background:var(--paper);
+  color:var(--neem-deep); font-weight:700; font-size:.85rem; padding:10px 16px; border-radius:12px; cursor:pointer;
+  transition:all .15s ease; white-space:nowrap;
+}
+.wx-locate-btn:hover{ background:var(--neem); color:var(--khadi); transform:translateY(-1px); }
+
+.wx-layout{
+  display:grid; grid-template-columns:1.1fr 1fr; gap:22px; align-items:start;
+}
+@media (max-width:900px){ .wx-layout{ grid-template-columns:1fr; } }
+
+.wx-map-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; position:relative;
+}
+#wxMap{ height:420px; width:100%; background:var(--khadi-deep); }
+.wx-map-hint{
+  position:absolute; left:12px; bottom:12px; z-index:500;
+  background:rgba(15,42,28,.86); color:#fff; font-size:.72rem; font-weight:700;
+  padding:7px 12px; border-radius:999px; pointer-events:none;
+}
+.wx-layer-toggle{
+  position:absolute; right:12px; top:12px; z-index:500;
+  border:none; cursor:pointer; background:rgba(15,42,28,.86); color:#fff;
+  font-size:.72rem; font-weight:700; font-family:'DM Sans',sans-serif;
+  padding:8px 13px; border-radius:999px; box-shadow:0 4px 12px rgba(0,0,0,.25);
+  transition:background .15s ease, transform .15s ease;
+}
+.wx-layer-toggle:hover{ background:var(--sindoor); transform:translateY(-1px); }
+.leaflet-div-icon{ background:transparent; border:none; }
+.leaflet-popup-content-wrapper{ border-radius:12px; font-family:'DM Sans',sans-serif; }
+.wx-pin-popup{ font-size:.82rem; }
+.wx-pin-popup b{ color:var(--neem-deep); font-family:'Manrope',sans-serif; }
+.wx-pin-popup button{
+  margin-top:6px; border:none; background:var(--sindoor); color:#fff; font-weight:700;
+  font-size:.74rem; padding:6px 10px; border-radius:8px; cursor:pointer; width:100%;
+}
+
+.wx-panel{
+  background:var(--neem-deep); color:#EAF2E9; border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:26px 26px 22px; position:relative; overflow:hidden;
+}
+.wx-panel::after{
+  content:''; position:absolute; top:-60px; right:-60px; width:220px; height:220px; border-radius:50%;
+  background:radial-gradient(circle, rgba(232,163,36,.18), transparent 70%);
+}
+.wx-panel > *{ position:relative; z-index:1; }
+.wx-panel-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.wx-place{ font-family:'Manrope',sans-serif; font-weight:800; font-size:1.15rem; color:#fff; }
+.wx-updated{ font-size:.72rem; color:#B9CBB8; margin-top:3px; }
+.wx-now{ display:flex; align-items:center; gap:8px; }
+.wx-now-icon{ font-size:2rem; }
+.wx-now-temp{ font-size:2rem; font-weight:700; color:#fff; font-family:'DM Sans',monospace; }
+.wx-cond{ font-size:.86rem; color:var(--haldi-light); font-weight:700; margin-top:4px; }
+
+.wx-stats{ display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+.wx-stat{ flex:1; min-width:96px; background:rgba(255,255,255,.07); border-radius:12px; padding:12px 14px; }
+.wx-stat .l{ font-size:.68rem; color:#AEC0AC; text-transform:uppercase; letter-spacing:.05em; font-weight:700; }
+.wx-stat .v{ font-size:1.05rem; font-weight:700; color:#fff; margin-top:3px; }
+
+.wx-advisory{
+  display:flex; align-items:flex-start; gap:10px; margin-top:18px;
+  background:rgba(232,163,36,.14); border:1px dashed rgba(232,163,36,.5);
+  border-radius:12px; padding:12px 14px; font-size:.83rem; color:#F6E7C6; line-height:1.5;
+}
+.wx-advisory .ic{ font-size:1.1rem; flex:none; }
+
+.wx-daily-head{ font-family:'Manrope',sans-serif; font-weight:800; font-size:.82rem; color:#fff; margin-top:22px; margin-bottom:10px; }
+.wx-daily-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+.wx-day{
+  background:rgba(255,255,255,.07); border-radius:10px; padding:10px 6px; text-align:center;
+}
+.wx-day .d{ font-size:.68rem; font-weight:700; color:#B9CBB8; }
+.wx-day .ic{ font-size:1.3rem; margin:5px 0 3px; }
+.wx-day .hi{ font-size:.82rem; font-weight:700; color:#fff; font-family:'DM Sans',monospace; }
+.wx-day .lo{ font-size:.72rem; color:#9FB49D; font-family:'DM Sans',monospace; }
+
+@media (max-width:480px){
+  .wx-daily-row{ grid-template-columns:repeat(5,minmax(0,1fr)); gap:5px; }
+  .wx-day{ padding:8px 3px; }
+  #wxMap{ height:320px; }
+}

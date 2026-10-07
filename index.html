@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KhetSetu — Modern Smart Agriculture Platform</title>
+<link rel="icon" type="image/png" href="khetsetu-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="voicebot.css">
+<link rel="stylesheet" href="weather.css">
+<link rel="stylesheet" href="export.css">
+<link rel="stylesheet" href="delivery.css">
+<link rel="stylesheet" href="company.css">
+<link rel="stylesheet" href="community.css">
+</head>
+<body>
+
+<div class="dl-add-toast" id="dlAddToast"></div>
+
+<header class="site">
+  <nav class="wrap">
+    <button class="brand" data-goto="home">
+      <img src="khetsetu-icon.png" alt="KhetSetu logo">
+      <div class="brand-text">
+        <div class="name" data-i18n="brand">KhetSetu</div>
+        <div class="tag" data-i18n="tagline">Straight from the khet to you</div>
+      </div>
+    </button>
+    <div class="nav-links">
+      <button class="active" data-goto="home" data-i18n="navHome">Home</button>
+      <button data-goto="marketplace" data-i18n="navMarket">Marketplace</button>
+      <button data-goto="forecast" data-i18n="navForecast">Price Forecast</button>
+      <button data-goto="weather" data-i18n="navWeather">Weather</button>
+      <button data-goto="export" data-i18n="navExport">Export</button>
+      <button data-goto="company" data-i18n="navCompany">Sell to Companies</button>
+      <button data-goto="community" data-i18n="navCommunity">Community</button>
+      <button data-goto="delivery"><span data-i18n="navDelivery">Delivery</span><span id="cartCountBadge" class="cart-badge"></span></button>
+      <button data-goto="services" data-i18n="navServices">Book Services</button>
+      <button data-goto="profile" data-i18n="navProfile">Get Started</button>
+    </div>
+    <div class="nav-actions">
+      <div class="lang-menu" id="langMenu">
+        <button class="lang-trigger" id="langTrigger" aria-label="Change language" aria-expanded="false" title="Change language">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18"/>
+            <path d="M12 3c2.6 2.6 4 5.7 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.7-4-9s1.4-6.4 4-9Z"/>
+          </svg>
+          <span id="langCode">EN</span>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-option active" data-lang="en">English <span>EN</span></button>
+          <button class="lang-option" data-lang="hi">हिन्दी <span>HI</span></button>
+          <button class="lang-option" data-lang="te">తెలుగు <span>TE</span></button>
+          <button class="lang-option" data-lang="ta">தமிழ் <span>TA</span></button>
+          <button class="lang-option" data-lang="ml">മലയാളം <span>ML</span></button>
+          <button class="lang-option" data-lang="kn">ಕನ್ನಡ <span>KN</span></button>
+        </div>
+      </div>
+      <button class="btn btn-haldi" data-goto="profile" data-i18n="navcta">Join Free</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<div class="page active" id="page-home">
+
+  <section class="home-hero" style="padding:0;">
+    <div class="hero-media"><img src="https://images.pexels.com/photos/29912210/pexels-photo-29912210.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Indian farmer working in a field" width="1400" height="900" fetchpriority="high"></div>
+    <div class="hero-scrim"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow" data-i18n="eyebrow">SIH26033 · Ministry of Consumer Affairs, Food & Public Distribution</div>
+        <h1 data-i18n="heroTitle">Cut out the middlemen. <em>Keep the farmer's fair share.</em></h1>
+        <p class="lead" data-i18n="heroLead">A direct mandi in your pocket — connecting farmers and FPOs straight to buyers, with logistics, cold storage, market-day slots and AI price forecasts built in.</p>
+        <div class="hero-tags">
+          <span class="tag-pill" data-i18n="heroTag1">Verified Farmers</span>
+          <span class="tag-pill" data-i18n="heroTag2">Direct Mandi</span>
+          <span class="tag-pill" data-i18n="heroTag3">AI Price Alerts</span>
+          <span class="tag-pill" data-i18n="heroTag4">DPDP Ready ✓</span>
+        </div>
+        <div class="hero-ctas">
+          <button class="btn btn-haldi" data-goto="profile" data-i18n="ctaFarmer">I'm a Farmer / FPO</button>
+          <button class="btn btn-ghost" data-goto="marketplace" data-i18n="ctaBuyer">I'm a Buyer</button>
+        </div>
+      </div>
+      <div class="hero-chit">
+        <div class="dot-badge">🍅</div>
+        <div>
+          <div class="ft" data-i18n="heroFloatCrop">Today's tomato rate</div>
+          <div class="fp mono" data-i18n="heroFloatPrice">₹32/kg</div>
+          <div class="fu" data-i18n="heroFloatTrend">▲ 6% from yesterday</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="mandi-chit">
+        <div class="stamp mono">KS-2026 · NASHIK MANDI</div>
+        <h3 data-i18n="splitTitle">Where ₹100 of tomato sales actually goes</h3>
+        <div class="sub" data-i18n="splitSub">Based on a typical 4-intermediary supply chain vs. the KhetSetu direct model</div>
+        <div class="split-row">
+          <div class="split-label"><span data-i18n="splitOldLabel">Traditional chain</span><span class="mono">₹100</span></div>
+          <div class="split-bar">
+            <div class="seg-farmer" style="width:35%">₹35</div>
+            <div class="seg-mid" style="width:50%">₹50</div>
+            <div class="seg-log" style="width:15%">₹15</div>
+          </div>
+        </div>
+        <div class="perforation"></div>
+        <div class="split-row" style="margin-bottom:4px;">
+          <div class="split-label"><span data-i18n="splitNewLabel">KhetSetu direct</span><span class="mono">₹100</span></div>
+          <div class="split-bar">
+            <div class="seg-farmer-new" style="width:78%">₹78</div>
+            <div class="seg-log" style="width:12%">₹12</div>
+            <div class="seg-mid" style="width:10%">₹10</div>
+          </div>
+        </div>
+        <div class="split-legend">
+          <span><span class="dot" style="background:var(--neem)"></span> <span data-i18n="legFarmer">Farmer share</span></span>
+          <span><span class="dot" style="background:var(--sindoor)"></span> <span data-i18n="legMid">Intermediaries</span></span>
+          <span><span class="dot" style="background:var(--haldi)"></span> <span data-i18n="legLog">Logistics</span></span>
+          <span><span class="dot" style="background:var(--sprout)"></span> <span data-i18n="legNew">Farmer share (direct)</span></span>
+        </div>
+      </div>
+
+      <div class="quick-links">
+        <button class="quick-card" data-goto="marketplace">
+          <img src="https://images.pexels.com/photos/32912931/pexels-photo-32912931.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Vegetable market stall" width="800" height="600" loading="lazy">
+          <div class="scrim"></div>
+          <div class="icon-chip">🧺</div>
+          <div class="qc-body"><h4 data-i18n="ql1t">Marketplace</h4><p data-i18n="ql1d">Browse and filter fresh produce by price.</p><div class="go" data-i18n="qlGo">Open →</div></div>
+        </button>
+        <button class="quick-card" data-goto="forecast">
+          <img src="https://images.pexels.com/photos/33411353/pexels-photo-33411353.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Golden wheat field close-up" width="800" height="600" loading="lazy">
+          <div class="scrim"></div>
+          <div class="icon-chip">📈</div>
+          <div class="qc-body"><h4 data-i18n="ql2t">Price Forecast</h4><p data-i18n="ql2d">AI-projected prices for the week ahead.</p><div class="go" data-i18n="qlGo">Open →</div></div>
+        </button>
+        <button class="quick-card" data-goto="services">
+          <img src="https://images.pexels.com/photos/10041323/pexels-photo-10041323.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Crates of vegetables ready for storage" width="800" height="600" loading="lazy">
+          <div class="scrim"></div>
+          <div class="icon-chip">❄</div>
+          <div class="qc-body"><h4 data-i18n="ql3t">Book Services</h4><p data-i18n="ql3d">Reserve cold storage and market-day stalls.</p><div class="go" data-i18n="qlGo">Open →</div></div>
+        </button>
+        <button class="quick-card" data-goto="community">
+          <img src="https://images.pexels.com/photos/2280568/pexels-photo-2280568.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Group of farmers meeting together" width="800" height="600" loading="lazy">
+          <div class="scrim"></div>
+          <div class="icon-chip">🤝</div>
+          <div class="qc-body"><h4 data-i18n="ql5t">Farmer Community</h4><p data-i18n="ql5d">Pool produce with nearby farmers for bulk deals.</p><div class="go" data-i18n="qlGo">Open →</div></div>
+        </button>
+        <button class="quick-card" data-goto="profile">
+          <img src="https://images.pexels.com/photos/31983758/pexels-photo-31983758.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Farmer standing in green field" width="800" height="600" loading="lazy">
+          <div class="scrim"></div>
+          <div class="icon-chip">🌱</div>
+          <div class="qc-body"><h4 data-i18n="ql4t">Get Started</h4><p data-i18n="ql4d">Create a free farmer or buyer account.</p><div class="go" data-i18n="qlGo">Open →</div></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap-section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="kicker" data-i18n="tsKicker">Voices from the field</div><h2 data-i18n="tsTitle">What farmers are saying</h2></div>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="mark">"</div>
+          <p class="q" data-i18n="t1q">Earlier the mandi barely paid me a fraction of the price. Now I sell straight to the buyer.</p>
+          <div class="testi-who">
+            <img class="testi-photo" src="https://images.pexels.com/photos/31983759/pexels-photo-31983759.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=200&h=200" alt="Ramesh Kumar" width="200" height="200" loading="lazy">
+            <div><div class="testi-name" data-i18n="t1n">Ramesh Kumar</div><div class="testi-loc" data-i18n="t1l">Nashik · Tomato grower</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="mark">"</div>
+          <p class="q" data-i18n="t2q">Booking cold storage from my phone saved two tonnes of onion last monsoon.</p>
+          <div class="testi-who">
+            <img class="testi-photo" src="https://images.pexels.com/photos/12883428/pexels-photo-12883428.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=200&h=200" alt="Sunita Devi" width="200" height="200" loading="lazy">
+            <div><div class="testi-name" data-i18n="t2n">Sunita Devi</div><div class="testi-loc" data-i18n="t2l">Nagpur · Onion FPO</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="mark">"</div>
+          <p class="q" data-i18n="t3q">The price forecast tells me exactly which week to sell my mangoes.</p>
+          <div class="testi-who">
+            <img class="testi-photo" src="https://images.pexels.com/photos/33950403/pexels-photo-33950403.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=200&h=200" alt="Anil Patil" width="200" height="200" loading="lazy">
+            <div><div class="testi-name" data-i18n="t3n">Anil Patil</div><div class="testi-loc" data-i18n="t3l">Ratnagiri · Mango grower</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap-section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="kicker" data-i18n="fsKicker">Roadmap</div><h2 data-i18n="fsTitle">What's next</h2></div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-n">01</div><div><h4 data-i18n="fs1t">Route optimisation</h4><p data-i18n="fs1d">AI-planned delivery routes to cut logistics cost further.</p></div></div>
+        <div class="tl-item"><div class="tl-n">02</div><div><h4 data-i18n="fs2t">Full regional languages</h4><p data-i18n="fs2d">Expanding beyond Hindi to Marathi, Tamil, Telugu, and more.</p></div></div>
+        <div class="tl-item"><div class="tl-n">03</div><div><h4 data-i18n="fs3t">Live logistics partners</h4><p data-i18n="fs3d">Real-time integration with delivery and transport providers.</p></div></div>
+        <div class="tl-item"><div class="tl-n">04</div><div><h4 data-i18n="fs4t">Verified FPO onboarding</h4><p data-i18n="fs4d">KYC-backed verification for farmer producer organisations.</p></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ MARKETPLACE ============ -->
+<div class="page" id="page-marketplace">
+  <section>
+    <div class="wrap">
+      <div class="mp-banner">
+        <img src="https://images.pexels.com/photos/16747112/pexels-photo-16747112.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Traditional Indian vegetable market" width="1400" height="650" loading="lazy">
+        <div class="scrim"></div>
+        <div>
+          <div class="kicker" style="color:#EAF7EA;" data-i18n="mpKicker">Marketplace</div>
+          <h2 data-i18n="mpTitle">Fresh listings, seedhe khet se</h2>
+          <p data-i18n="mpDesc">Browse produce from verified farmers and FPOs near you. Filter by the price you're willing to pay.</p>
+        </div>
+        <div class="mp-stat-chip">
+          <div class="l" data-i18n="mpStatL">Today's fresh arrivals</div>
+          <div class="v mono" data-i18n="mpStatV">9,850 kg · 59 crops</div>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="range-field">
+          <label data-i18n="filterPrice" for="priceRange">Price range (₹ per kg)</label>
+          <input type="range" id="priceRange" min="10" max="120" value="120">
+          <div class="range-values"><span>₹10</span><span id="priceRangeVal" class="mono">up to ₹120</span></div>
+        </div>
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="filterCategory" for="categoryFilter">Category</label>
+          <select id="categoryFilter">
+            <option value="all" data-i18n="catAll">All produce</option>
+            <option value="veg" data-i18n="catVeg">Vegetables</option>
+            <option value="fruit" data-i18n="catFruit">Fruits</option>
+            <option value="grain" data-i18n="catGrain">Grains</option>
+          </select>
+        </div>
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="filterSort" for="sortFilter">Sort by</label>
+          <select id="sortFilter">
+            <option value="low" data-i18n="sortLow">Price: low to high</option>
+            <option value="high" data-i18n="sortHigh">Price: high to low</option>
+            <option value="fresh" data-i18n="sortFresh">Freshest first</option>
+          </select>
+        </div>
+      </div>
+      <div class="produce-grid" id="produceGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ FORECAST ============ -->
+<div class="page" id="page-forecast">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker" data-i18n="fcKicker">AI Demand Forecast</div>
+          <h2 data-i18n="fcTitle">Know tomorrow's price today</h2>
+          <p data-i18n="fcDesc">A trend model projects next week's price from the last 14 days, so farmers can decide when to sell and buyers can plan purchases.</p>
+        </div>
+        <div class="fc-controls">
+          <select id="cropSelect">
+            <option value="tomato" data-i18n="cropTomato">Tomato</option>
+            <option value="onion" data-i18n="cropOnion">Onion</option>
+            <option value="wheat" data-i18n="cropWheat">Wheat</option>
+            <option value="potato" data-i18n="cropPotato">Potato</option>
+            <option value="spinach" data-i18n="cropSpinach">Spinach</option>
+          </select>
+          <select id="stateSelect">
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Telangana">Telangana</option>
+          </select>
+        </div>
+      </div>
+      <div class="forecast-layout">
+        <div class="forecast-panel">
+          <div class="forecast-top">
+            <div class="forecast-crop-id">
+              <img id="forecastCropThumb" src="" alt="">
+              <div>
+                <div class="kicker" id="forecastCropName">Tomato</div>
+                <h3 style="margin-bottom:2px;" data-i18n="fcPanelTitle">Mandi Bhav Tracker</h3>
+                <div class="sub" data-i18n="fcSub">Price per kg, last 14 days + 7-day AI projection</div>
+              </div>
+            </div>
+            <div class="data-badge" id="dataSourceBadge">
+              <span class="dot"></span><span id="dataSourceText">Checking live data…</span>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="forecastChart"></canvas></div>
+          <div class="factor-row" id="factorRow"></div>
+          <div class="forecast-stats">
+            <div class="stat"><div class="num mono" id="statCurrent">₹32</div><div class="lbl" data-i18n="statCurrentL">Current price</div></div>
+            <div class="stat up"><div class="num mono" id="statForecast">₹38</div><div class="lbl" data-i18n="statForecastL">7-day forecast</div></div>
+            <div class="stat"><div class="num mono" id="statLow">₹27</div><div class="lbl" data-i18n="statLowL">14-day low</div></div>
+            <div class="stat"><div class="num mono" id="statHigh">₹41</div><div class="lbl" data-i18n="statHighL">14-day high</div></div>
+          </div>
+          <div class="daybyday-head" data-i18n="fcDaybyday">Day-by-day AI forecast</div>
+          <div class="daybyday-row" id="dayByDayForecast"></div>
+          <div class="fc-source-note" id="fcSourceNote"></div>
+        </div>
+        <div class="enam-panel">
+          <div class="enam-top">
+            <div class="kicker" data-i18n="enamKicker">eNAM Auction Price</div>
+            <div class="data-badge" id="enamBadge">
+              <span class="dot"></span><span id="enamBadgeText">Checking…</span>
+            </div>
+          </div>
+          <div id="enamBody"></div>
+        </div>
+      </div>
+
+      <div class="price-guard-panel">
+        <div class="pg-head">
+          <div class="kicker" data-i18n="pgKicker">Price Guard</div>
+          <h3 data-i18n="pgTitle">Don't let a quick sale eat your profit</h3>
+          <p data-i18n="pgDesc">Set the lowest price you can accept, then check it against today's mandi rate, the AI forecast, and eNAM before you agree to sell.</p>
+        </div>
+        <div class="pg-mode-toggle">
+          <button class="active" id="pgModeCostBtn" data-i18n="pgModeCost">Calculate from cost</button>
+          <button id="pgModeDirectBtn" data-i18n="pgModeDirect">Set directly</button>
+        </div>
+        <div class="pg-inputs" id="pgInputsCost">
+          <div class="field">
+            <label data-i18n="pgCostLabel" for="pgCost">Cost of production (₹/kg)</label>
+            <input type="number" id="pgCost" placeholder="e.g. 18" min="0" step="0.5">
+          </div>
+          <div class="field">
+            <label data-i18n="pgMarginLabel" for="pgMargin">Minimum profit margin (%)</label>
+            <input type="number" id="pgMargin" value="20" min="0" step="1">
+          </div>
+        </div>
+        <div class="pg-inputs" id="pgInputsDirect" style="display:none;">
+          <div class="field">
+            <label data-i18n="pgDirectLabel" for="pgDirect">Your minimum price (₹/kg)</label>
+            <input type="number" id="pgDirect" placeholder="e.g. 24" min="0" step="0.5">
+          </div>
+        </div>
+        <div class="pg-floor-display">
+          <span class="pg-floor-label" data-i18n="pgFloorLabel">Your minimum price</span>
+          <span class="pg-floor-value" id="pgFloorValue">₹0</span>
+        </div>
+        <div class="pg-compare-grid" id="pgCompareGrid"></div>
+        <div class="pg-note" id="pgNote"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ WEATHER ============ -->
+<div class="page" id="page-weather">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker" data-i18n="wxKicker">Live Weather</div>
+          <h2 data-i18n="wxTitle">Weather forecast for your mandi</h2>
+          <p data-i18n="wxDesc">Tap a pin on the map or search any village, city, or mandi for a 5-day outlook — rain, temperature, humidity and wind — so you know the best day to harvest, spray, or head to market.</p>
+        </div>
+      </div>
+
+      <div class="wx-toolbar">
+        <div class="wx-search">
+          <input type="text" id="wxSearchInput" placeholder="Search village, city or mandi…" data-i18n-placeholder="wxSearchPh">
+          <button type="button" class="mini-btn" id="wxSearchBtn" data-i18n="wxSearchBtn">Search</button>
+        </div>
+        <button type="button" class="wx-locate-btn" id="wxLocateBtn" data-i18n="wxLocateBtn">📍 Use my location</button>
+      </div>
+
+      <div class="wx-layout">
+        <div class="wx-map-card">
+          <div id="wxMap"></div>
+          <button type="button" class="wx-layer-toggle" id="wxLayerToggle">🛰️ Satellite</button>
+          <div class="wx-map-hint" data-i18n="wxMapSub">Tap a pin — or anywhere on the map — to load its forecast</div>
+        </div>
+
+        <div class="wx-panel">
+          <div class="wx-panel-top">
+            <div>
+              <div class="wx-place" id="wxPlaceName">Nashik, Maharashtra</div>
+              <div class="wx-updated" id="wxUpdated">Loading weather…</div>
+            </div>
+            <div class="wx-now">
+              <div class="wx-now-icon" id="wxNowIcon">☀️</div>
+              <div>
+                <div class="wx-now-temp" id="wxNowTemp">--°C</div>
+                <div class="wx-cond" id="wxNowCond">—</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wx-stats">
+            <div class="wx-stat"><div class="l" data-i18n="wxHumidity">Humidity</div><div class="v" id="wxHumidity">--%</div></div>
+            <div class="wx-stat"><div class="l" data-i18n="wxWind">Wind</div><div class="v" id="wxWind">-- km/h</div></div>
+            <div class="wx-stat"><div class="l" data-i18n="wxRainChance">Rain chance</div><div class="v" id="wxRain">--%</div></div>
+          </div>
+
+          <div class="wx-advisory"><div class="ic">🌾</div><div id="wxAdvisoryText">Pick a location to see today's farming advisory.</div></div>
+
+          <div class="wx-daily-head" data-i18n="wxDaybyday">5-day outlook</div>
+          <div class="wx-daily-row" id="wxDailyRow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ EXPORT ============ -->
+<div class="page" id="page-export">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker" data-i18n="exKicker">Export Opportunities</div>
+          <h2 data-i18n="exTitle">Sell beyond the mandi — export by demand</h2>
+          <p data-i18n="exDesc">See which crops overseas buyers want right now, the price premium over today's mandi rate, and the paperwork needed — then register your produce and get matched to a destination.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="exFilterCategory" for="exCatFilter">Category</label>
+          <select id="exCatFilter">
+            <option value="all" data-i18n="catAll">All produce</option>
+            <option value="veg" data-i18n="catVeg">Vegetables</option>
+            <option value="fruit" data-i18n="catFruit">Fruits</option>
+            <option value="grain" data-i18n="catGrain">Grains</option>
+          </select>
+        </div>
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="exFilterDemand" for="exDemandFilter">Demand level</label>
+          <select id="exDemandFilter">
+            <option value="all" data-i18n="exDemandAll">All demand levels</option>
+            <option value="high" data-i18n="exDemandHigh">High demand</option>
+            <option value="medium" data-i18n="exDemandMedium">Medium demand</option>
+            <option value="low" data-i18n="exDemandLow">Low demand</option>
+          </select>
+        </div>
+        <div class="range-field" style="min-width:180px;">
+          <label data-i18n="exFilterSort" for="exSortFilter">Sort by</label>
+          <select id="exSortFilter">
+            <option value="demand" data-i18n="exSortDemand">Highest demand first</option>
+            <option value="premiumHigh" data-i18n="exSortPremiumHigh">Export premium: high to low</option>
+            <option value="premiumLow" data-i18n="exSortPremiumLow">Export premium: low to high</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ex-grid" id="exGrid"></div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-body">
+            <h3 style="margin-bottom:4px;" data-i18n="exFormTitle">📦 Register produce for export</h3>
+            <div class="desc" data-i18n="exFormDesc">Tell us what you have — we'll match it to the best-paying overseas destination for that crop.</div>
+            <form class="inline-form" id="exportForm">
+              <div class="row">
+                <div class="field">
+                  <label data-i18n="exFieldCrop" for="exCropSelect">Crop</label>
+                  <select id="exCropSelect"></select>
+                </div>
+                <div class="field">
+                  <label data-i18n="exFieldQty" for="exQty">Quantity (kg)</label>
+                  <input type="number" id="exQty" placeholder="e.g. 500" min="1" required>
+                </div>
+              </div>
+              <div class="field">
+                <label data-i18n="exFieldGrade" for="exGrade">Quality grade</label>
+                <select id="exGrade">
+                  <option value="Export A" data-i18n="exGradeA">Export Grade A</option>
+                  <option value="B" data-i18n="exGradeB">Grade B</option>
+                  <option value="Standard" data-i18n="exGradeStd">Standard</option>
+                </select>
+                <div class="fee-hint" id="exNetHint"></div>
+              </div>
+              <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="exSubmit">Match me to a buyer</button>
+            </form>
+            <div class="confirm-msg" id="exConfirmMsg" data-i18n="exSuccess">Listed for export — matched to a buyer below. Our team will reach out to confirm pickup and paperwork.</div>
+
+            <div class="ex-my-listings">
+              <div class="ex-sub" data-i18n="exMyListingsTitle">My export listings</div>
+              <div id="exMyList"></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="privacy-note">
+            <div class="ribbon" data-i18n="exRibbon">Illustrative demo data</div>
+            <strong data-i18n="exNoteTitle">How the export match works</strong>
+            <p data-i18n="exNoteBody" style="margin:0;">Demand levels, destination countries, and price premiums shown here are illustrative estimates for this prototype — not live trade data. In production this module would plug into APEDA/DGFT trade statistics and real buyer demand feeds to route each listing to a verified importer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ COMPANY REQUIREMENTS ============ -->
+<div class="page" id="page-company">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker" data-i18n="cbKicker">Direct-to-Company</div>
+          <h2 data-i18n="cbTitle">Companies post what they need — you supply it directly</h2>
+          <p data-i18n="cbDesc">Food companies, mills, and exporters list exactly what crop, quantity, and price they're offering. Respond directly with your offer and skip the mandi and every middleman in between.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="cbFilterCategory" for="cbCatFilter">Category</label>
+          <select id="cbCatFilter">
+            <option value="all" data-i18n="catAll">All produce</option>
+            <option value="veg" data-i18n="catVeg">Vegetables</option>
+            <option value="fruit" data-i18n="catFruit">Fruits</option>
+            <option value="grain" data-i18n="catGrain">Grains</option>
+          </select>
+        </div>
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="cbFilterUrgency" for="cbUrgencyFilter">Urgency</label>
+          <select id="cbUrgencyFilter">
+            <option value="all" data-i18n="cbUrgencyAll">All requirements</option>
+            <option value="high" data-i18n="cbUrgencyHigh">Urgent need</option>
+            <option value="medium" data-i18n="cbUrgencyMedium">Open need</option>
+            <option value="low" data-i18n="cbUrgencyLow">Ongoing need</option>
+          </select>
+        </div>
+        <div class="range-field" style="min-width:180px;">
+          <label data-i18n="cbFilterSort" for="cbSortFilter">Sort by</label>
+          <select id="cbSortFilter">
+            <option value="urgency" data-i18n="cbSortUrgency">Most urgent first</option>
+            <option value="priceHigh" data-i18n="cbSortPriceHigh">Offer price: high to low</option>
+            <option value="priceLow" data-i18n="cbSortPriceLow">Offer price: low to high</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="cb-grid" id="cbGrid"></div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-body">
+            <div class="role-toggle">
+              <button class="active" id="cbRoleFarmerBtn" type="button" data-i18n="cbRoleFarmer">I'm a Farmer</button>
+              <button id="cbRoleCompanyBtn" type="button" data-i18n="cbRoleCompany">I'm a Company</button>
+            </div>
+
+            <div class="cb-panel active" id="cbFarmerPanel">
+              <h3 style="margin-bottom:4px;" data-i18n="cbRespondTitle">🤝 Offer to supply</h3>
+              <div class="desc" data-i18n="cbRespondDesc">Pick an open requirement below and send the quantity you can supply and your price — the company is notified directly.</div>
+              <form class="inline-form" id="cbRespondForm">
+                <div class="field">
+                  <label data-i18n="cbFieldRequirement" for="cbReqSelect">Requirement</label>
+                  <select id="cbReqSelect" required></select>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label data-i18n="cbFieldSupplyQty" for="cbSupplyQty">Quantity you can supply (kg)</label>
+                    <input type="number" id="cbSupplyQty" placeholder="e.g. 500" min="1" required>
+                  </div>
+                  <div class="field">
+                    <label data-i18n="cbFieldYourPrice" for="cbYourPrice">Your price (₹/kg)</label>
+                    <input type="number" id="cbYourPrice" placeholder="e.g. 38" min="1" step="0.5" required>
+                    <div class="fee-hint" id="cbYourPriceHint"></div>
+                  </div>
+                </div>
+                <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="cbRespondSubmit">Send offer to company</button>
+              </form>
+              <div class="confirm-msg" id="cbRespondMsg" data-i18n="cbRespondSuccess">Offer sent — the company will confirm pickup and payment directly with you.</div>
+
+              <div class="cb-my-list">
+                <div class="ex-sub" data-i18n="cbMyResponsesTitle">My offers sent</div>
+                <div id="cbMyResponses"></div>
+              </div>
+            </div>
+
+            <div class="cb-panel" id="cbCompanyPanel">
+              <h3 style="margin-bottom:4px;" data-i18n="cbPostTitle">📋 Post a requirement</h3>
+              <div class="desc" data-i18n="cbPostDesc">Tell farmers exactly what you need — it appears in the list above immediately so they can respond to you directly.</div>
+              <form class="inline-form" id="cbPostForm">
+                <div class="field">
+                  <label data-i18n="cbFieldCompanyName" for="cbCompanyName">Company name</label>
+                  <input type="text" id="cbCompanyName" placeholder="e.g. Sunrise Foods Pvt Ltd" required>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label data-i18n="cbFieldCropNeeded" for="cbCropNeeded">Crop needed</label>
+                    <select id="cbCropNeeded"></select>
+                  </div>
+                  <div class="field">
+                    <label data-i18n="cbFieldQtyNeeded" for="cbQtyNeeded">Quantity needed (kg)</label>
+                    <input type="number" id="cbQtyNeeded" placeholder="e.g. 5000" min="1" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label data-i18n="cbFieldOfferPrice" for="cbOfferPriceInput">Price you're offering (₹/kg)</label>
+                    <input type="number" id="cbOfferPriceInput" placeholder="e.g. 38" min="1" step="0.5" required>
+                  </div>
+                  <div class="field">
+                    <label data-i18n="cbFieldDeadline" for="cbDeadlineInput">Needed by</label>
+                    <input type="date" id="cbDeadlineInput">
+                  </div>
+                </div>
+                <div class="field">
+                  <label data-i18n="cbFieldLocation" for="cbLocationInput">Pickup location</label>
+                  <input type="text" id="cbLocationInput" placeholder="e.g. Nashik, Maharashtra" required>
+                </div>
+                <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="cbPostSubmit">Post requirement</button>
+              </form>
+              <div class="confirm-msg" id="cbPostMsg" data-i18n="cbPostSuccess">Requirement posted — farmers can see and respond to it right away.</div>
+
+              <div class="cb-my-list">
+                <div class="ex-sub" data-i18n="cbMyPostedTitle">My posted requirements</div>
+                <div id="cbMyPosted"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="privacy-note">
+            <div class="ribbon" data-i18n="cbRibbon">Illustrative demo data</div>
+            <strong data-i18n="cbNoteTitle">How direct-to-company sourcing works</strong>
+            <p data-i18n="cbNoteBody" style="margin:0;">Requirements, offer prices, and fulfilment percentages shown here are illustrative for this prototype — not live company data. In production this module would let verified companies post real demand, notify matching nearby farmers instantly, and route pickup and payment directly between the two — cutting out mandi commission agents and other intermediaries entirely.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ COMMUNITY ============ -->
+<div class="page" id="page-community">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker" data-i18n="cmKicker">Farmer Community</div>
+          <h2 data-i18n="cmTitle">Alone you're one voice. Pooled, you're a mandi.</h2>
+          <p data-i18n="cmDesc">Join or start a group with farmers growing the same crop nearby. Every member's quantity adds to one combined lot — and a bigger pooled lot means better price talks with companies and bulk buyers than any single farmer selling alone.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="cmFilterCategory" for="cmCatFilter">Category</label>
+          <select id="cmCatFilter">
+            <option value="all" data-i18n="catAll">All produce</option>
+            <option value="veg" data-i18n="catVeg">Vegetables</option>
+            <option value="fruit" data-i18n="catFruit">Fruits</option>
+            <option value="grain" data-i18n="catGrain">Grains</option>
+          </select>
+        </div>
+        <div class="range-field" style="min-width:160px;">
+          <label data-i18n="cmFilterStatus" for="cmStatusFilter">Status</label>
+          <select id="cmStatusFilter">
+            <option value="all" data-i18n="cmStatusAll">All groups</option>
+            <option value="ready" data-i18n="cmStatusReady">Ready for buyers</option>
+            <option value="forming" data-i18n="cmStatusForming">Still pooling</option>
+          </select>
+        </div>
+        <div class="range-field" style="min-width:180px;">
+          <label data-i18n="cmFilterSort" for="cmSortFilter">Sort by</label>
+          <select id="cmSortFilter">
+            <option value="progress" data-i18n="cmSortProgress">Most pooled first</option>
+            <option value="members" data-i18n="cmSortMembers">Most members first</option>
+            <option value="priceHigh" data-i18n="cmSortPriceHigh">Ask price: high to low</option>
+            <option value="priceLow" data-i18n="cmSortPriceLow">Ask price: low to high</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="cm-grid" id="cmGrid"></div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-body">
+            <div class="role-toggle">
+              <button class="active" id="cmRoleJoinBtn" type="button" data-i18n="cmRoleJoin">Join a Group</button>
+              <button id="cmRoleCreateBtn" type="button" data-i18n="cmRoleCreate">Start a Group</button>
+              <button id="cmRoleBuyerBtn" type="button" data-i18n="cmRoleBuyer">I'm a Buyer</button>
+            </div>
+
+            <div class="cm-panel active" id="cmJoinPanel">
+              <h3 style="margin-bottom:4px;" data-i18n="cmJoinTitle">🤝 Add your produce to a group</h3>
+              <div class="desc" data-i18n="cmJoinDesc">Pick a group below and add the quantity you can contribute — it's added straight to the pooled total everyone benefits from.</div>
+              <form class="inline-form" id="cmJoinForm">
+                <div class="field">
+                  <label data-i18n="cmFieldGroup" for="cmGroupSelect">Group</label>
+                  <select id="cmGroupSelect" required></select>
+                </div>
+                <div class="field">
+                  <label data-i18n="cmFieldJoinQty" for="cmJoinQty">Quantity you'll contribute (kg)</label>
+                  <input type="number" id="cmJoinQty" placeholder="e.g. 300" min="1" required>
+                </div>
+                <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="cmJoinSubmit">Add to pooled lot</button>
+              </form>
+              <div class="confirm-msg" id="cmJoinMsg" data-i18n="cmJoinSuccess">Added — your quantity now counts toward this group's pooled lot.</div>
+
+              <div class="cm-my-list">
+                <div class="ex-sub" data-i18n="cmMyJoinedTitle">Groups I've joined</div>
+                <div id="cmMyJoined"></div>
+              </div>
+            </div>
+
+            <div class="cm-panel" id="cmCreatePanel">
+              <h3 style="margin-bottom:4px;" data-i18n="cmCreateTitle">🚜 Start a new group</h3>
+              <div class="desc" data-i18n="cmCreateDesc">No group for your crop and village yet? Start one — it appears above immediately so nearby farmers can find and join it.</div>
+              <form class="inline-form" id="cmCreateForm">
+                <div class="field">
+                  <label data-i18n="cmFieldGroupName" for="cmCreateName">Group name</label>
+                  <input type="text" id="cmCreateName" placeholder="e.g. Baramati Onion Growers Circle" required>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label data-i18n="cmFieldCrop" for="cmCreateCrop">Crop</label>
+                    <select id="cmCreateCrop"></select>
+                  </div>
+                  <div class="field">
+                    <label data-i18n="cmFieldVillage" for="cmCreateVillage">Village / City</label>
+                    <input type="text" id="cmCreateVillage" placeholder="e.g. Baramati, Maharashtra" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label data-i18n="cmFieldTarget" for="cmCreateTarget">Target pooled quantity (kg)</label>
+                    <input type="number" id="cmCreateTarget" placeholder="e.g. 5000" min="1" required>
+                  </div>
+                  <div class="field">
+                    <label data-i18n="cmFieldStartQty" for="cmCreateQty">Your starting quantity (kg)</label>
+                    <input type="number" id="cmCreateQty" placeholder="e.g. 400" min="1" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <label data-i18n="cmFieldAskPrice" for="cmCreatePrice">Price you'd like to ask (₹/kg)</label>
+                  <input type="number" id="cmCreatePrice" placeholder="e.g. 27" min="1" step="0.5" required>
+                </div>
+                <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="cmCreateSubmit">Start this group</button>
+              </form>
+              <div class="confirm-msg" id="cmCreateMsg" data-i18n="cmCreateSuccess">Group started — it's now listed above for nearby farmers to join.</div>
+
+              <div class="cm-my-list">
+                <div class="ex-sub" data-i18n="cmMyCreatedTitle">Groups I've started</div>
+                <div id="cmMyCreated"></div>
+              </div>
+            </div>
+
+            <div class="cm-panel" id="cmBuyerPanel">
+              <h3 style="margin-bottom:4px;" data-i18n="cmBuyerTitle">🏭 Express interest in a pooled lot</h3>
+              <div class="desc" data-i18n="cmBuyerDesc">Browse groups above — the ones marked "Ready for buyers" have hit their pooling target. Send the quantity you want and your offer price directly to the group.</div>
+              <form class="inline-form" id="cmBuyerForm">
+                <div class="field">
+                  <label data-i18n="cmFieldGroup" for="cmBuyerGroupSelect">Group</label>
+                  <select id="cmBuyerGroupSelect" required></select>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label data-i18n="cmFieldBuyerQty" for="cmBuyerQty">Quantity you want (kg)</label>
+                    <input type="number" id="cmBuyerQty" placeholder="e.g. 2000" min="1" required>
+                  </div>
+                  <div class="field">
+                    <label data-i18n="cmFieldBuyerPrice" for="cmBuyerPrice">Your offer price (₹/kg)</label>
+                    <input type="number" id="cmBuyerPrice" placeholder="e.g. 36" min="1" step="0.5" required>
+                  </div>
+                </div>
+                <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="cmBuyerSubmit">Send interest to group</button>
+              </form>
+              <div class="confirm-msg" id="cmBuyerMsg" data-i18n="cmBuyerSuccess">Interest sent — the group's members will be notified and can confirm pickup and payment directly with you.</div>
+
+              <div class="cm-my-list">
+                <div class="ex-sub" data-i18n="cmMyInterestsTitle">My interests sent</div>
+                <div id="cmMyInterests"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="privacy-note">
+            <div class="ribbon" data-i18n="cmRibbon">Illustrative demo data</div>
+            <strong data-i18n="cmNoteTitle">How pooled group selling works</strong>
+            <p data-i18n="cmNoteBody" style="margin:0;">Groups, pooled quantities, and member counts shown here are illustrative for this prototype — not live data. In production this module would let verified farmers form real village/crop groups, automatically total each member's contribution, and route the combined lot to companies and bulk buyers as one listing — giving small farmers the negotiating weight of a much larger seller.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ DELIVERY ============ -->
+<div class="page" id="page-delivery">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="kicker" data-i18n="dlKicker">Home Delivery</div>
+          <h2 data-i18n="dlTitle">Farm-fresh produce, delivered to your door</h2>
+          <p data-i18n="dlDesc">Review the crops you've added from the Marketplace, tell us where to deliver, and place your order — no mandi visit needed.</p>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-body">
+            <h3 style="margin-bottom:14px;" data-i18n="dlCartTitle">Your Cart</h3>
+            <div class="dl-cart-list" id="dlCartList"></div>
+
+            <div class="dl-summary" id="dlSummary" style="display:none;">
+              <div class="dl-summary-row"><span data-i18n="dlSubtotal">Subtotal</span><span id="dlSubtotalVal">₹0</span></div>
+              <div class="dl-summary-row"><span data-i18n="dlDeliveryFee">Delivery fee</span><span id="dlFeeVal">₹0</span></div>
+              <div class="dl-summary-row total"><span data-i18n="dlTotal">Total</span><span id="dlTotalVal">₹0</span></div>
+              <div class="dl-free-hint" id="dlFreeHint"></div>
+            </div>
+
+            <div class="dl-form-warning" id="dlFormWarning"></div>
+            <form class="inline-form" id="deliveryForm">
+              <div class="row">
+                <div class="field">
+                  <label data-i18n="dlFieldName" for="dlName">Full name</label>
+                  <input type="text" id="dlName" required>
+                </div>
+                <div class="field">
+                  <label data-i18n="dlFieldPhone" for="dlPhone">Phone number</label>
+                  <input type="tel" id="dlPhone" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number" required>
+                </div>
+              </div>
+              <div class="field">
+                <label data-i18n="dlFieldAddress" for="dlAddress">Delivery address</label>
+                <input type="text" id="dlAddress" required>
+              </div>
+              <div class="row">
+                <div class="field">
+                  <label data-i18n="dlFieldCity" for="dlCity">City / Village</label>
+                  <input type="text" id="dlCity">
+                </div>
+                <div class="field">
+                  <label data-i18n="dlFieldPincode" for="dlPincode">Pincode</label>
+                  <input type="text" id="dlPincode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="6-digit pincode" required>
+                </div>
+              </div>
+              <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="dlPlaceOrder">Place order</button>
+            </form>
+            <div class="confirm-msg" id="dlConfirmMsg" data-i18n="dlOrderSuccess">Order placed — the farmer/FPO will be notified and your delivery will be confirmed by SMS.</div>
+
+            <div class="dl-my-orders-wrap" style="margin-top:22px;">
+              <div class="ex-sub" data-i18n="dlMyOrdersTitle">My orders</div>
+              <div class="dl-my-orders" id="dlMyOrders"></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="privacy-note">
+            <div class="ribbon" data-i18n="dlRibbon">Illustrative demo data</div>
+            <strong data-i18n="dlNoteTitle">How delivery works</strong>
+            <p data-i18n="dlNoteBody" style="margin:0;">Delivery fee and timelines shown here are illustrative for this prototype. In production this module would plug into local logistics/courier partners to route each order from the nearest verified farmer or FPO to the buyer's address.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<div class="page" id="page-services">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="kicker" data-i18n="opsKicker">Farmer Tools</div><h2 data-i18n="opsTitle">Book storage. Reserve your market spot.</h2></div>
+      </div>
+
+      <div class="how-strip">
+        <div class="how-item"><div class="how-n">1</div><h4 data-i18n="how1t">Choose a service</h4><p data-i18n="how1d">Pick cold storage or a market-day stall.</p></div>
+        <div class="how-item"><div class="how-n">2</div><h4 data-i18n="how2t">Pick your date &amp; slot</h4><p data-i18n="how2d">Select your move-in date or stall spot on the calendar.</p></div>
+        <div class="how-item"><div class="how-n">3</div><h4 data-i18n="how3t">Get confirmed by SMS</h4><p data-i18n="how3d">The facility or market confirms your booking straight to your phone.</p></div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-head">
+            <img src="https://images.pexels.com/photos/10041323/pexels-photo-10041323.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Crates of vegetables" width="800" height="500" loading="lazy">
+            <div class="scrim"></div>
+            <h3 data-i18n="csTitle">❄ Cold Storage Booking</h3>
+          </div>
+          <div class="feature-card-body">
+            <div class="desc" data-i18n="csDesc">Reserve space at a nearby facility to protect unsold produce from spoilage.</div>
+            <div class="storage-list" id="storageList"></div>
+            <form class="inline-form" id="storageForm">
+              <div class="row">
+                <div class="field"><label data-i18n="csFrom" for="csFromField">Move-in date</label><input id="csFromField" type="date" required></div>
+                <div class="field"><label data-i18n="csQty" for="csQtyField">Quantity (kg)</label><input id="csQtyField" type="number" placeholder="e.g. 200" required></div>
+              </div>
+              <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="csConfirm">Confirm booking</button>
+            </form>
+            <div class="confirm-msg" id="csConfirmMsg" data-i18n="csSuccess">Booking request sent — the facility will confirm by SMS.</div>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-head">
+            <img src="https://images.pexels.com/photos/30319868/pexels-photo-30319868.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Street market scene" width="800" height="500" loading="lazy">
+            <div class="scrim"></div>
+            <h3 data-i18n="mdTitle">📍 Market Day Scheduler</h3>
+          </div>
+          <div class="feature-card-body">
+            <div class="desc" data-i18n="mdDesc">Pick a market, date, and stall spot to sell directly to walk-in buyers.</div>
+            <form class="inline-form" id="marketForm">
+              <div class="field">
+                <label data-i18n="mdMarket" id="mdMarketLabel">Market location</label>
+                <div class="loc-list" id="locationList" role="group" aria-labelledby="mdMarketLabel"></div>
+              </div>
+              <div class="field"><label data-i18n="mdDate" for="mdDateField">Date</label><input id="mdDateField" type="date" required></div>
+              <div class="field">
+                <label data-i18n="mdSpot" id="mdSpotLabel">Stall spot</label>
+                <div class="spot-grid" id="spotGrid" role="group" aria-labelledby="mdSpotLabel"></div>
+              </div>
+              <button type="submit" class="mini-btn" style="align-self:flex-start;" data-i18n="mdConfirm">Reserve spot</button>
+            </form>
+            <div class="confirm-msg" id="mdConfirmMsg" data-i18n="mdSuccess">Spot reserved — arrive 30 minutes before market opens.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PROFILE ============ -->
+<div class="page" id="page-profile">
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="kicker" data-i18n="pfKicker">Get Started</div><h2 data-i18n="pfTitle">Create your free account</h2></div>
+      </div>
+      <div class="profile-grid">
+        <div class="feature-card">
+          <div class="feature-card-body">
+            <div class="role-toggle">
+              <button class="active" id="roleFarmer" data-i18n="roleFarmer">I'm a Farmer / FPO</button>
+              <button id="roleBuyer" data-i18n="roleBuyer">I'm a Buyer</button>
+            </div>
+            <div class="fee-card" id="farmerFeeCard">
+              <div class="fee-card-top">
+                <span class="fee-badge" data-i18n="feeBadge">Farmer plan</span>
+                <div class="fee-amount"><span class="fee-num">₹29</span><span class="fee-per" data-i18n="feePer">/month</span></div>
+              </div>
+              <p class="fee-note" data-i18n="feeNote">Less than the cost of a cup of chai — keeps unlimited listings, AI price alerts and buyer matching free of middleman cuts.</p>
+              <ul class="fee-perks">
+                <li data-i18n="feePerk1">Unlimited produce &amp; export listings</li>
+                <li data-i18n="feePerk2">Daily AI mandi price alerts</li>
+                <li data-i18n="feePerk3">Priority matching with buyers &amp; companies</li>
+              </ul>
+              <div class="fee-free-note" data-i18n="feeFreeNote">Buyers &amp; companies use KhetSetu free — always.</div>
+            </div>
+            <form class="inline-form" id="profileForm">
+              <div class="row">
+                <div class="field"><label data-i18n="fldName" for="fldNameField">Full name</label><input id="fldNameField" type="text" placeholder="e.g. Ramesh Kumar" required></div>
+                <div class="field"><label data-i18n="fldPhone" for="fldPhoneField">Phone number</label><input id="fldPhoneField" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="+91 XXXXX XXXXX" required></div>
+              </div>
+              <div class="field"><label data-i18n="fldLoc" for="fldLocField">Village / City</label><input id="fldLocField" type="text" placeholder="e.g. Nashik, Maharashtra" required></div>
+              <div class="field">
+                <label data-i18n="fldAadhaar" for="aadhaarInput">Aadhaar card number</label>
+                <input type="text" id="aadhaarInput" inputmode="numeric" maxlength="14" placeholder="XXXX XXXX XXXX" data-i18n-placeholder="fldAadhaarPh">
+                <div class="field-hint" data-i18n="fldAadhaarHint">Used only for identity verification. Your 12-digit Aadhaar number is never stored in plain text.</div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="align-self:flex-start;margin-top:6px;" data-i18n="fldSubmit">Create account</button>
+            </form>
+            <div class="confirm-msg" id="profileConfirmMsg" data-i18n="profileSuccess">Account details submitted — we'll verify your Aadhaar and confirm by SMS.</div>
+          </div>
+        </div>
+        <div>
+          <div class="profile-photo-card">
+            <img src="https://images.pexels.com/photos/30573590/pexels-photo-30573590.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Portrait of a traditional Indian farmer" width="900" height="700" loading="lazy">
+            <div class="scrim"></div>
+            <p data-i18n="profilePhotoCaption">Trusted by farmer producer organisations across Maharashtra</p>
+          </div>
+          <div class="privacy-note">
+            <div class="ribbon" data-i18n="dpdpRibbon">DPDP Act 2023 ready</div>
+            <strong data-i18n="privTitle">Only what's needed, nothing more.</strong>
+            <p data-i18n="privBody" style="margin:0;">We collect name, phone, and location purely to connect you with buyers or sellers nearby and to confirm bookings. No financial data, ID proof, or browsing history is stored. Designed following data-minimisation principles under India's DPDP Act, 2023.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="foot-band">
+    <img src="https://images.pexels.com/photos/10745253/pexels-photo-10745253.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Farmers on tractor in a wide field" width="1200" height="450" loading="lazy">
+    <div class="scrim"></div>
+  </div>
+  <div class="toran"></div>
+  <div class="wrap">
+    <div>
+      <h4 style="display:flex;align-items:center;gap:8px;"><img src="khetsetu-icon.png" alt="KhetSetu" style="width:28px;height:28px;object-fit:contain;"><span data-i18n="brand">KhetSetu</span></h4>
+      <p data-i18n="footDesc">A direct marketplace built for SIH26033 — connecting farmers and FPOs with buyers, without the middlemen.</p>
+    </div>
+    <div>
+      <h4 data-i18n="footContact">Contact</h4>
+      <p data-i18n="footTeam">Team submission · Smart India Hackathon 2026 · Theme: Agriculture, Food & Rural Development</p>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 KhetSetu — Prototype for SIH26033</span>
+    <span data-i18n="footTag">Straight from the khet to you</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="script.js"></script>
+<script src="export.js"></script>
+<script src="weather.js"></script>
+<script src="delivery.js"></script>
+<script src="company.js"></script>
+<script src="community.js"></script>
+<script src="voicebot.js"></script>
+</body>
+</html>

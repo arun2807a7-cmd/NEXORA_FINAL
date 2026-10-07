@@ -1,0 +1,185 @@
+/* =========================================================
+   KHETSETU VOICE ASSISTANT — WIDGET STYLES
+   Reuses the site's own design tokens (khadi / neem / haldi
+   palette, DM Sans + Manrope, dashed "mandi-chit" card motif)
+   so the assistant feels native to KhetSetu rather than bolted on.
+   ========================================================= */
+
+#ks-voicebot{
+  --khadi:#F7F1E2; --khadi-deep:#EFE4C8; --paper:#FFFDF7; --chit:#FBF6E8;
+  --neem:#173D26; --neem-deep:#0F2A1C;
+  --haldi:#E8A324; --haldi-light:#F6CB55;
+  --sindoor:#BE4A26; --sindoor-light:#E2704B;
+  --sprout:#83A66F;
+  --ink:#241C12;
+  --line:rgba(31,74,52,0.16);
+  --shadow:0 14px 40px rgba(31,74,52,0.24);
+  font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  position:fixed; right:22px; bottom:22px; z-index:9999;
+}
+#ks-voicebot *{box-sizing:border-box;}
+#ks-voicebot h1,#ks-voicebot h2,#ks-voicebot h3,#ks-voicebot h4{
+  font-family:'Manrope',sans-serif; font-weight:800; color:var(--neem-deep); margin:0;
+}
+
+/* ---------- Floating launcher button ---------- */
+.ks-fab{
+  width:62px; height:62px; border-radius:50%; border:none; cursor:pointer;
+  background:conic-gradient(from 0deg, var(--neem), var(--sprout), var(--haldi), var(--sindoor), var(--neem));
+  box-shadow:0 10px 26px rgba(23,61,38,0.4);
+  position:relative; display:flex; align-items:center; justify-content:center;
+  transition:transform .18s ease, box-shadow .18s ease;
+  animation:ksFabSpin 10s linear infinite;
+}
+.ks-fab:hover{ transform:translateY(-3px) scale(1.04); box-shadow:0 14px 32px rgba(23,61,38,0.48); }
+.ks-fab::before{
+  content:""; position:absolute; inset:5px; border-radius:50%;
+  background:var(--paper); display:flex;
+}
+.ks-fab .ks-fab-icon{
+  position:relative; z-index:1; font-size:24px; line-height:1;
+}
+.ks-fab .ks-fab-badge{
+  position:absolute; top:-3px; right:-3px; background:var(--sindoor); color:#fff;
+  font-size:9px; font-weight:800; letter-spacing:.04em; padding:3px 6px; border-radius:999px;
+  box-shadow:0 3px 8px rgba(0,0,0,.25); z-index:2; white-space:nowrap;
+}
+@keyframes ksFabSpin{ to{ transform:rotate(360deg); } }
+.ks-fab:hover{ animation-play-state:paused; }
+#ks-voicebot.open .ks-fab{ display:none; }
+
+/* ---------- Panel ---------- */
+.ks-panel{
+  position:absolute; right:0; bottom:0;
+  width:min(378px, 90vw); height:min(640px, 82vh);
+  background:var(--chit);
+  border:1.5px dashed var(--sindoor);
+  border-radius:22px;
+  box-shadow:var(--shadow);
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  animation:ksPop .22s ease;
+}
+#ks-voicebot.open .ks-panel{ display:flex; }
+@keyframes ksPop{ from{ opacity:0; transform:translateY(14px) scale(.97); } to{ opacity:1; transform:translateY(0) scale(1); } }
+
+/* ---------- Header ---------- */
+.ks-head{
+  background:var(--neem); color:var(--khadi); padding:14px 16px 12px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px; flex:none;
+}
+.ks-head-title{ display:flex; align-items:center; gap:10px; }
+.ks-head-title .emoji{ font-size:22px; }
+.ks-head-title .txt .t1{ font-family:'Manrope',sans-serif; font-weight:800; font-size:.95rem; color:#fff; }
+.ks-head-title .txt .t2{ font-size:.68rem; color:var(--haldi-light); font-weight:600; }
+.ks-head-actions{ display:flex; align-items:center; gap:6px; }
+.ks-lang-row{ display:flex; gap:4px; }
+.ks-lang-btn{
+  border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.08); color:#fff;
+  font-size:.68rem; font-weight:800; padding:5px 8px; border-radius:999px; cursor:pointer;
+  transition:all .15s ease;
+}
+.ks-lang-btn:hover{ background:rgba(255,255,255,.2); }
+.ks-lang-btn.active{ background:var(--haldi); color:var(--neem-deep); border-color:var(--haldi); }
+.ks-close{
+  width:28px; height:28px; border-radius:50%; border:none; background:rgba(255,255,255,.12);
+  color:#fff; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.ks-close:hover{ background:rgba(255,255,255,.24); }
+
+/* ---------- Orb ---------- */
+.ks-orb-wrap{ display:flex; flex-direction:column; align-items:center; padding:16px 12px 6px; flex:none; }
+.ks-orb-stage{ position:relative; width:74px; height:74px; display:flex; align-items:center; justify-content:center; }
+.ks-orb-ring{ position:absolute; inset:0; border-radius:50%; border:1px solid var(--line); }
+.ks-orb-ring.r2{ inset:-10px; }
+.ks-orb{
+  width:56px; height:56px; border-radius:50%; position:relative;
+  background:conic-gradient(from 0deg, var(--neem), var(--sprout), var(--haldi), var(--sindoor), var(--neem));
+  box-shadow:0 0 22px 4px rgba(23,61,38,.28);
+  animation:ksIdleSpin 12s linear infinite;
+}
+.ks-orb::before{
+  content:""; position:absolute; inset:5px; border-radius:50%;
+  background:radial-gradient(circle at 32% 28%, rgba(255,255,255,.7), rgba(255,255,255,0) 55%), var(--paper);
+}
+.ks-orb-stage.listening .ks-orb{ animation:ksIdleSpin 3s linear infinite, ksPulse 1s ease-in-out infinite; box-shadow:0 0 30px 8px rgba(232,163,36,.45); }
+.ks-orb-stage.speaking .ks-orb{ animation:ksIdleSpin 1.6s linear infinite, ksPulse .5s ease-in-out infinite; box-shadow:0 0 30px 8px rgba(190,74,38,.4); }
+.ks-orb-stage.listening .ks-orb-ring, .ks-orb-stage.speaking .ks-orb-ring{ animation:ksRingPulse 1.5s ease-out infinite; border-color:var(--haldi); }
+.ks-orb-stage.listening .ks-orb-ring.r2, .ks-orb-stage.speaking .ks-orb-ring.r2{ animation-delay:.3s; }
+@keyframes ksIdleSpin{ to{ transform:rotate(360deg); } }
+@keyframes ksPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.1); } }
+@keyframes ksRingPulse{ 0%{ opacity:.6; transform:scale(1); } 100%{ opacity:0; transform:scale(1.5); } }
+.ks-status{ height:16px; font-size:.72rem; color:var(--sindoor); font-weight:700; margin-top:8px; text-align:center; }
+
+/* ---------- Quick actions ---------- */
+.ks-quick{ display:flex; gap:6px; flex-wrap:wrap; padding:2px 14px 10px; flex:none; }
+.ks-chip{
+  border:1px solid var(--line); background:var(--paper); color:var(--neem-deep);
+  font-size:.7rem; font-weight:700; padding:6px 10px; border-radius:999px; cursor:pointer;
+  transition:all .15s ease; white-space:nowrap;
+}
+.ks-chip:hover{ background:var(--neem); color:var(--khadi); transform:translateY(-1px); }
+
+/* ---------- Chat ---------- */
+.ks-chat{
+  flex:1; overflow-y:auto; padding:6px 14px 10px; display:flex; flex-direction:column; gap:9px;
+  border-top:1px dashed var(--line); min-height:0;
+}
+.ks-chat::-webkit-scrollbar{ width:5px; }
+.ks-chat::-webkit-scrollbar-thumb{ background:var(--khadi-deep); border-radius:3px; }
+.ks-msg{ max-width:88%; padding:9px 12px; border-radius:14px; font-size:.82rem; line-height:1.5; animation:ksFadeUp .22s ease; white-space:pre-line; }
+.ks-msg.user{ align-self:flex-end; background:var(--neem); color:var(--khadi); border-bottom-right-radius:4px; }
+.ks-msg.bot{ align-self:flex-start; background:var(--paper); border:1px solid var(--line); color:var(--ink); border-bottom-left-radius:4px; }
+.ks-msg .who{ display:block; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; opacity:.6; margin-bottom:2px; font-weight:700; }
+@keyframes ksFadeUp{ from{ opacity:0; transform:translateY(5px); } to{ opacity:1; transform:translateY(0); } }
+
+/* ---------- Info cards inside chat (forecast / storage) ---------- */
+.ks-card{ background:var(--paper); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-top:4px; }
+.ks-card img{ width:100%; height:76px; object-fit:cover; display:block; }
+.ks-card-body{ padding:8px 10px; }
+.ks-card-title{ font-family:'Manrope',sans-serif; font-weight:800; font-size:.78rem; color:var(--neem-deep); margin-bottom:2px; }
+.ks-card-row{ display:flex; justify-content:space-between; font-size:.72rem; color:#5C5142; padding:2px 0; }
+.ks-card-row b{ color:var(--neem-deep); font-family:'DM Sans',monospace; }
+.ks-card-link{ display:inline-block; margin-top:5px; font-size:.68rem; font-weight:800; color:var(--sindoor); text-decoration:none; }
+.ks-storage-item{ display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px dashed var(--line); font-size:.72rem; }
+.ks-storage-item:last-child{ border-bottom:none; }
+.ks-storage-item .nm{ font-weight:700; color:var(--neem-deep); }
+.ks-storage-item .st{ font-size:.62rem; font-weight:800; padding:2px 7px; border-radius:999px; }
+.ks-storage-item .st.open{ background:rgba(23,61,38,.1); color:var(--neem); }
+.ks-storage-item .st.low{ background:rgba(232,163,36,.18); color:#8a5f0d; }
+
+/* ---------- Input row ---------- */
+.ks-input-row{ display:flex; align-items:center; gap:8px; padding:10px 14px 14px; flex:none; border-top:1px solid var(--line); background:var(--khadi); }
+.ks-mic-btn{
+  width:40px; height:40px; border-radius:50%; border:1.5px solid var(--neem); background:var(--paper);
+  color:var(--neem); font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex:none;
+  transition:all .15s ease;
+}
+.ks-mic-btn:hover{ transform:translateY(-1px); }
+.ks-mic-btn.on{ background:var(--sindoor); border-color:var(--sindoor); color:#fff; animation:ksPulse 1s ease-in-out infinite; }
+.ks-mic-btn:disabled{ opacity:.4; cursor:not-allowed; }
+.ks-text-input{
+  flex:1; border:1.5px solid var(--line); background:var(--paper); border-radius:999px;
+  padding:9px 14px; font-size:.8rem; font-family:'DM Sans',sans-serif; color:var(--ink); outline:none;
+}
+.ks-text-input:focus{ border-color:var(--neem); }
+.ks-send-btn{
+  width:40px; height:40px; border-radius:50%; border:none; background:var(--neem); color:var(--khadi);
+  font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex:none;
+}
+.ks-send-btn:hover{ background:var(--neem-deep); }
+
+/* Field highlight used when the assistant walks the farmer through a form */
+.ks-highlight{
+  outline:3px solid var(--haldi) !important; outline-offset:2px;
+  box-shadow:0 0 0 6px rgba(232,163,36,.22) !important;
+  animation:ksHighlightPulse 1.1s ease-in-out 3;
+  border-radius:10px;
+}
+@keyframes ksHighlightPulse{ 0%,100%{ outline-color:var(--haldi); } 50%{ outline-color:var(--sindoor); } }
+
+@media (max-width:480px){
+  #ks-voicebot{ right:14px; bottom:14px; }
+  .ks-panel{ width:92vw; height:78vh; }
+}

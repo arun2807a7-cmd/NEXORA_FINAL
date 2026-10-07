@@ -1,0 +1,90 @@
+/* =========================================================
+   KHETSETU EXPORT MODULE — styles
+   Demand-matched export listing: which crops are wanted
+   abroad right now, at what premium, and what paperwork
+   is needed — plus a simple "register for export" flow.
+   Reuses the site's own tokens so it feels native.
+   ========================================================= */
+
+.ex-grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:22px;
+  margin-bottom:44px;
+}
+
+.ex-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; transition:transform .18s ease;
+}
+.ex-card:hover{ transform:translateY(-4px); }
+
+.ex-card-head{ position:relative; height:120px; }
+.ex-card-head img{ width:100%; height:100%; object-fit:cover; display:block; }
+.ex-badge{
+  position:absolute; top:10px; left:10px; font-size:.64rem; font-weight:800; letter-spacing:.04em;
+  text-transform:uppercase; padding:5px 11px; border-radius:999px; color:#fff;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+}
+.ex-badge.ex-high{ background:var(--sindoor); }
+.ex-badge.ex-medium{ background:var(--haldi); color:var(--neem-deep); }
+.ex-badge.ex-low{ background:var(--sprout); }
+
+.ex-card-body{ padding:18px 20px 20px; }
+.ex-card-body h4{ font-size:1.08rem; margin-bottom:10px; }
+
+.ex-meter{ height:7px; border-radius:999px; background:var(--khadi-deep); overflow:hidden; margin-bottom:14px; }
+.ex-meter-fill{ height:100%; border-radius:999px; }
+.ex-meter-fill.ex-high{ background:var(--sindoor); }
+.ex-meter-fill.ex-medium{ background:var(--haldi); }
+.ex-meter-fill.ex-low{ background:var(--sprout); }
+
+.ex-price-row{ display:flex; gap:10px; margin-bottom:14px; }
+.ex-price-row > div{ flex:1; background:var(--khadi); border-radius:10px; padding:8px 9px; }
+.ex-price-row .l{ display:block; font-size:.62rem; font-weight:700; color:#8a7d68; text-transform:uppercase; letter-spacing:.04em; }
+.ex-price-row .v{ display:block; font-family:'DM Sans',monospace; font-size:.95rem; font-weight:700; color:var(--neem-deep); margin-top:2px; }
+.ex-price-row .v.up{ color:var(--sindoor); }
+
+.ex-fee-box{
+  background:var(--chit); border:1px dashed var(--line); border-radius:10px;
+  padding:10px 12px; margin-bottom:14px;
+}
+.ex-fee-row{ display:flex; justify-content:space-between; align-items:center; font-size:.74rem; color:#6b5f4d; margin-bottom:4px; }
+.ex-fee-amt{ font-family:'DM Sans',monospace; font-weight:700; color:var(--sindoor); }
+.ex-net-row{
+  display:flex; justify-content:space-between; align-items:center; margin-top:6px; padding-top:6px;
+  border-top:1px solid var(--line); font-size:.82rem; font-weight:800; color:var(--neem-deep);
+}
+.ex-net-amt{ font-family:'DM Sans',monospace; font-size:1rem; color:var(--sprout); }
+.ex-fee-note{ font-size:.66rem; color:#8a7d68; margin-top:7px; line-height:1.4; }
+
+.ex-sub{ font-size:.68rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:#8a7d68; margin:0 0 7px; }
+.ex-chip-row{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+.ex-chip{
+  background:var(--neem); color:var(--khadi); font-size:.72rem; font-weight:700;
+  padding:5px 10px; border-radius:999px; white-space:nowrap;
+}
+.ex-req-chip{
+  background:none; border:1px dashed var(--line); color:#5C5142; font-size:.7rem; font-weight:600;
+  padding:5px 10px; border-radius:999px; white-space:nowrap;
+}
+
+.ex-pick-btn{ width:100%; margin-top:4px; text-align:center; }
+
+/* ---------- Register-for-export form + my listings ---------- */
+.ex-listing{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  border:1.5px solid var(--line); border-radius:11px; padding:12px 14px; margin-bottom:10px;
+}
+.ex-listing:last-child{ margin-bottom:0; }
+.ex-listing-main b{ color:var(--neem-deep); font-family:'Manrope',sans-serif; }
+.ex-listing-sub{ font-size:.76rem; color:#6b5f4d; margin-top:3px; }
+.ex-status{
+  flex:none; font-size:.66rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+  background:rgba(131,166,111,.22); color:#3E6B2E; padding:5px 10px; border-radius:999px;
+}
+.ex-empty-hint{ font-size:.86rem; color:#8a7d68; padding:6px 2px; }
+.ex-my-listings{ margin-top:18px; }
+
+@media (max-width:520px){
+  .ex-price-row{ flex-wrap:wrap; }
+  .ex-price-row > div{ min-width:44%; }
+}

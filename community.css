@@ -1,0 +1,97 @@
+/* =========================================================
+   KHETSETU FARMER COMMUNITY MODULE — styles
+   Farmers form or join a village/crop group, pool their
+   produce into one combined quantity, and the pooled lot is
+   offered to companies and other bulk buyers as a single
+   large listing — more weight in price talks than any one
+   farmer selling alone.
+   Mirrors company.css / export.css conventions (cm- prefix)
+   so it feels native to the rest of the site.
+   ========================================================= */
+
+.cm-grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:22px;
+  margin-bottom:44px;
+}
+
+.cm-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; transition:transform .18s ease;
+  display:flex; flex-direction:column;
+}
+.cm-card:hover{ transform:translateY(-4px); }
+
+.cm-card-head{
+  display:flex; align-items:center; gap:12px; padding:16px 18px 14px;
+  background:var(--neem-deep); color:#fff; position:relative;
+}
+.cm-card-icon{
+  width:42px; height:42px; border-radius:12px; background:rgba(255,255,255,.14);
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex:none;
+}
+.cm-card-head-txt{ min-width:0; }
+.cm-group-name{ font-family:'Manrope',sans-serif; font-weight:800; font-size:.86rem; color:#fff; line-height:1.25;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.cm-group-loc{ font-size:.68rem; color:#B9CBB8; margin-top:2px; }
+.cm-new-tag{
+  position:absolute; top:-9px; right:12px; font-size:.62rem; font-weight:800; letter-spacing:.03em;
+  background:var(--haldi); color:var(--neem-deep); padding:4px 9px; border-radius:999px;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+}
+
+.cm-badge{
+  font-size:.64rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+  padding:5px 11px; border-radius:999px; color:#fff; display:inline-block; margin-bottom:10px;
+}
+.cm-badge.cm-ready{ background:var(--sprout); }
+.cm-badge.cm-forming{ background:var(--haldi); color:var(--neem-deep); }
+
+.cm-card-body{ padding:16px 18px 20px; flex:1; display:flex; flex-direction:column; }
+.cm-card-body h4{ font-size:1.05rem; margin-bottom:2px; }
+.cm-target-sub{ font-size:.76rem; color:#8a7d68; margin-bottom:12px; }
+.cm-target-sub b{ color:var(--neem-deep); font-family:'DM Sans',monospace; }
+
+.cm-meter{ height:7px; border-radius:999px; background:var(--khadi-deep); overflow:hidden; margin-bottom:4px; }
+.cm-meter-fill{ height:100%; border-radius:999px; background:var(--sprout); transition:width .3s ease; }
+.cm-meter-fill.cm-forming-fill{ background:var(--haldi); }
+.cm-meter-label{ font-size:.66rem; color:#8a7d68; margin-bottom:14px; }
+
+.cm-price-row{ display:flex; gap:10px; margin-bottom:14px; }
+.cm-price-row > div{ flex:1; background:var(--khadi); border-radius:10px; padding:8px 9px; }
+.cm-price-row .l{ display:block; font-size:.62rem; font-weight:700; color:#8a7d68; text-transform:uppercase; letter-spacing:.04em; }
+.cm-price-row .v{ display:block; font-family:'DM Sans',monospace; font-size:.95rem; font-weight:700; color:var(--neem-deep); margin-top:2px; }
+.cm-price-row .v.up{ color:var(--sindoor); }
+
+.cm-chip-row{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+.cm-loc-chip, .cm-member-chip{
+  font-size:.72rem; font-weight:700; padding:5px 10px; border-radius:999px; white-space:nowrap;
+  background:var(--neem); color:var(--khadi);
+}
+.cm-member-chip{ background:var(--sindoor-light); color:#fff; }
+
+.cm-join-btn{ width:100%; margin-top:auto; text-align:center; }
+
+/* ---------- Role toggle re-uses .role-toggle from style.css ---------- */
+.cm-panel{ display:none; }
+.cm-panel.active{ display:block; }
+
+/* ---------- My groups / my interests ---------- */
+.cm-listing{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  border:1.5px solid var(--line); border-radius:11px; padding:12px 14px; margin-bottom:10px;
+}
+.cm-listing:last-child{ margin-bottom:0; }
+.cm-listing-main b{ color:var(--neem-deep); font-family:'Manrope',sans-serif; }
+.cm-listing-sub{ font-size:.76rem; color:#6b5f4d; margin-top:3px; }
+.cm-status{
+  flex:none; font-size:.66rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+  background:rgba(131,166,111,.22); color:#3E6B2E; padding:5px 10px; border-radius:999px;
+}
+.cm-status.pending{ background:rgba(232,163,36,.22); color:#8a5f0d; }
+.cm-empty-hint{ font-size:.86rem; color:#8a7d68; padding:6px 2px; }
+.cm-my-list{ margin-top:18px; }
+
+@media (max-width:520px){
+  .cm-price-row{ flex-wrap:wrap; }
+  .cm-price-row > div{ min-width:44%; }
+}
